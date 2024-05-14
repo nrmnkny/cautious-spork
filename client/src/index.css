@@ -1,0 +1,50 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+body {
+  margin: 0;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
+    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
+    sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+code {
+  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New','Inter var', 'sans-serif'
+    monospace;
+}
+/* Additional CSS for custom backgrounds */
+.background-pattern {
+  background-image: url('../src/assets/vapourwave.jpg');
+  background-size: cover;
+}
+
+/* PostReview.css */
+.review-form {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  max-width: 500px;
+  margin: auto;
+}
+
+.review-form input, .review-form textarea, .review-form button {
+  padding: 8px;
+  font-size: 16px;
+}
+
+.review-form .error {
+  color: red;
+}
+
+.disc-player {
+  position: relative;
+  width: 300px; /* Adjust size as necessary */
+  height: 300px; /* Adjust size as necessary */
+  background-color: #000; /* Disc background */
+  border-radius: 50%;
+  box-shadow: 0 8px 16px rgba(0,0,0,0.3);
+}
+
