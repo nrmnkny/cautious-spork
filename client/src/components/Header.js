@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faMicrophone } from '@fortawesome/free-solid-svg-icons';
+import logo from '../assets/rhythmic.webp';
 
 const Header = () => {
   const [scrolled, setScrolled] = useState(false);
@@ -19,7 +18,7 @@ const Header = () => {
     <header className={`fixed top-0 left-0 w-full z-10 transition-colors duration-300 ${scrolled ? 'bg-black' : 'bg-transparent'} bg-opacity-80 text-white shadow-lg`}>
       <div className="container mx-auto flex justify-around items-center px-4 py-2 font-general">
         <h1 className="text-xl font-header leading-none tracking-tighter animate-pulse" style={{ fontFamily: 'Pacifico, cursive' }}>
-          Rhyth <FontAwesomeIcon icon={faMicrophone} size="lg" />
+          <img src={logo} alt="Rhythmic Logo" className="w-10 h-auto" />
         </h1>
         <nav>
           <ul className="flex space-x-8 text-sm items-center" style={{ fontFamily: 'Roboto Mono, monospace' }}>
