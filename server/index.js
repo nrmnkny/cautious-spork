@@ -7,7 +7,7 @@ const authRouter = require('./routes/authRoutes');
 
 const app = express();
 
-app.use(cors({ origin: ['https://rhythmicsrvr.vercel.app/'] })); 
+app.use(cors({ origin: ['http://localhost:3000', 'https://rhythmiccli.vercel.app'] })); 
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(express.static('public'));
