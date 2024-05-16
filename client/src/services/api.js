@@ -1,8 +1,8 @@
 import axios from 'axios';
+import API_URL from '../config';
 
-const API_BASE_URL = 'http://localhost:3001/api';
 const api = axios.create({
-    baseURL: API_BASE_URL,
+    baseURL: `${API_URL}/api`,
     headers: {
         'Content-Type': 'application/json'
     }
@@ -72,7 +72,7 @@ export const deleteReview = async (id) => {
 
 export const loginUser = async (credentials) => {
     try {
-        const response = await api.post('/login', credentials);
+        const response = await api.post('/auth/login', credentials); // Corrected endpoint
         return response.data;
     } catch (error) {
         console.error('Login API error:', error.response);
@@ -82,7 +82,7 @@ export const loginUser = async (credentials) => {
 
 export const registerUser = async (userData) => {
     try {
-        const response = await api.post('/register', userData);
+        const response = await api.post('/auth/register', userData); // Corrected endpoint
         return response.data;
     } catch (error) {
         console.error('Registration API error:', error.response);
