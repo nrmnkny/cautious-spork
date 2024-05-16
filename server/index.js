@@ -7,8 +7,13 @@ const authRouter = require('./routes/authRoutes');
 
 const app = express();
 
-// Allow requests from your frontend domains
-app.use(cors({ origin: ['http://localhost:3000', 'https://rhythmiccli.vercel.app', 'https://rhythmiccli-faz6tghx2-quirkscodes-projects.vercel.app'] }));
+// Update the CORS configuration to allow requests from your frontend domains
+app.use(cors({
+    origin: ['http://localhost:3000', 'https://rhythmiccli.vercel.app', 'https://rhythmiccli-faz6tghx2-quirkscodes-projects.vercel.app'],
+    methods: 'GET,HEAD,PUT,PATCH,POST,DELETE',
+    credentials: true
+}));
+
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(express.static('public'));
