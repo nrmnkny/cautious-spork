@@ -1,20 +1,30 @@
 import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
+import API_URL from '../config';
 
 const Reviews = () => {
     const [reviews, setReviews] = useState([]);
     const [error, setError] = useState(null);
 
     useEffect(() => {
-        fetch('https://rhythmicsrvr.vercel.app/api/reviews')
-            .then(response => {
+        const fetchReviews = async () => {
+            try {
+                const response = await fetch(`${API_URL}/api/reviews`, {
+                    headers: {
+                        'Authorization': `Bearer ${localStorage.getItem('token')}`
+                    }
+                });
                 if (!response.ok) {
                     throw new Error('Network response was not ok');
                 }
-                return response.json();
-            })
-            .then(data => setReviews(data))
-            .catch(error => setError(error.message));
+                const data = await response.json();
+                setReviews(data);
+            } catch (error) {
+                setError(error.message);
+            }
+        };
+
+        fetchReviews();
     }, []);
 
     return (

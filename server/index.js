@@ -3,12 +3,12 @@ const express = require('express');
 const bodyParser = require('body-parser');
 const cors = require('cors');
 const reviewsRouter = require('./routes/reviews');
-const authRouter = require('./routes/authRoutes'); 
+const authRouter = require('./routes/authRoutes');
 
 const app = express();
 
-// Update the CORS configuration to allow requests from your frontend URL
-app.use(cors({ origin: ['http://localhost:3000', 'https://rhythmiccli.vercel.app'] }));
+// Allow requests from your frontend domains
+app.use(cors({ origin: ['http://localhost:3000', 'https://rhythmiccli.vercel.app', 'https://rhythmiccli-faz6tghx2-quirkscodes-projects.vercel.app'] }));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(express.static('public'));
