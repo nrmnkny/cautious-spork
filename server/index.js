@@ -10,9 +10,8 @@ const app = express();
 // Update the CORS configuration to allow requests from your frontend domains
 const allowedOrigins = [
     'http://localhost:3000', 
-    'https://rhythmiccli.vercel.app',
-    'https://rhythmiccli-faz6tghx2-quirkscodes-projects.vercel.app',
-    'https://rhythmicserver.vercel.app'
+    'https://rhythmic-client.vercel.app',
+    'https://rhythmic-server-kohl.vercel.app'
 ];
 
 app.use(cors({
