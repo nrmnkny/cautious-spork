@@ -3,7 +3,7 @@ const multer = require('multer');
 const path = require('path');
 const { body, validationResult } = require('express-validator');
 const db = require('../db');
-const { authenticateToken, authenticateAdmin } = require('../routes/authRoutes');
+const { authenticateToken, authenticateAdmin } = require('./authRoutes');
 
 const router = express.Router();
 
@@ -116,6 +116,7 @@ router.post('/:reviewId/comments', authenticateToken, [
         res.status(201).json({ message: 'Comment posted successfully' });
     });
 });
+
 // Get a single review by ID
 router.get('/:reviewId', (req, res) => {
     const { reviewId } = req.params;

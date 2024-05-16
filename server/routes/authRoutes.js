@@ -52,4 +52,6 @@ router.post('/login', (req, res) => {
     });
 });
 
-module.exports = { router, authenticateToken, authenticateAdmin };
+module.exports = router;
+module.exports.authenticateToken = authenticateToken;
+module.exports.authenticateAdmin = authenticateAdmin;
