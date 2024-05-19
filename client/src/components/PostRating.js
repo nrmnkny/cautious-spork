@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { useAuth } from '../context/AuthContext';
+import API_URL from '../config';
 
 const PostRating = ({ reviewId }) => {
     const { isAuthenticated } = useAuth();
@@ -14,7 +15,7 @@ const PostRating = ({ reviewId }) => {
         }
 
         try {
-            const response = await fetch(`http://localhost:3001/api/reviews/${reviewId}/rating`, {
+            const response = await fetch(`${API_URL}/api/reviews/${reviewId}/rating`, {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',

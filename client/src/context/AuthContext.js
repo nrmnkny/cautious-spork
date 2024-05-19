@@ -1,25 +1,47 @@
-import React, { createContext, useContext, useState } from 'react';
+import React, { createContext, useContext, useState, useEffect } from 'react';
+import { useNavigate } from 'react-router-dom';
+import { jwtDecode } from 'jwt-decode';
 
-const AuthContext = createContext(null);
+const AuthContext = createContext();
+
+export const useAuth = () => {
+    return useContext(AuthContext);
+};
 
 export const AuthProvider = ({ children }) => {
-    const [isAuthenticated, setIsAuthenticated] = useState(false);
+    const [token, setToken] = useState(localStorage.getItem('token'));
+    const [user, setUser] = useState(null);
+    const navigate = useNavigate();
 
-    const login = (token) => {
-        localStorage.setItem('token', token);
-        setIsAuthenticated(true);
+    useEffect(() => {
+        if (token) {
+            const decodedToken = jwtDecode(token);
+            setUser(decodedToken);
+        } else {
+            setUser(null);
+        }
+    }, [token]);
+
+    const login = (newToken) => {
+        localStorage.setItem('token', newToken);
+        setToken(newToken);
+        const decodedToken = jwtDecode(newToken);
+        setUser(decodedToken);
     };
 
     const logout = () => {
         localStorage.removeItem('token');
-        setIsAuthenticated(false);
+        setToken(null);
+        setUser(null);
+        navigate('/login');
     };
 
-    return (
-        <AuthContext.Provider value={{ isAuthenticated, login, logout }}>
-            {children}
-        </AuthContext.Provider>
-    );
-};
+    const value = {
+        token,
+        user,
+        login,
+        logout,
+    };
 
-export const useAuth = () => useContext(AuthContext);
+    return <AuthContext.Provider value={value}>{children}</AuthContext.Provider>;
+};

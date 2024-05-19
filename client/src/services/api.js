@@ -72,7 +72,7 @@ export const deleteReview = async (id) => {
 
 export const loginUser = async (credentials) => {
     try {
-        const response = await api.post('/auth/login', credentials); // Corrected endpoint
+        const response = await api.post('/auth/login', credentials);
         return response.data;
     } catch (error) {
         console.error('Login API error:', error.response);
@@ -82,7 +82,7 @@ export const loginUser = async (credentials) => {
 
 export const registerUser = async (userData) => {
     try {
-        const response = await api.post('/auth/register', userData); // Corrected endpoint
+        const response = await api.post('/auth/register', userData);
         return response.data;
     } catch (error) {
         console.error('Registration API error:', error.response);

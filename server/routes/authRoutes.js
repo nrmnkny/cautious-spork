@@ -1,3 +1,4 @@
+// authRoutes.js
 const express = require('express');
 const jwt = require('jsonwebtoken');
 const bcrypt = require('bcryptjs');
@@ -32,10 +33,13 @@ function authenticateAdmin(req, res, next) {
 router.post('/register', async (req, res) => {
     const { username, email, password } = req.body;
     const hashedPassword = await bcrypt.hash(password, 8);
-    db.query('INSERT INTO Users (username, email, password) VALUES (?, ?, ?)', [username, email, hashedPassword], (err, results) => {
+    db.query('INSERT INTO Users (username, email, password_hash) VALUES (?, ?, ?)', [username, email, hashedPassword], (err, results) => {
         if (err) return res.status(500).json({ error: err.message });
-        const token = jwt.sign({ userId: results.insertId }, JWT_SECRET, { expiresIn: '1h' });
-        res.status(201).json({ token });
+
+        const user = { userId: results.insertId, username, role: 'user' };
+        const token = jwt.sign(user, JWT_SECRET, { expiresIn: '1h' });
+
+        res.status(201).json({ token, user });
     });
 });
 
@@ -44,11 +48,14 @@ router.post('/login', (req, res) => {
     const { username, password } = req.body;
     db.query('SELECT * FROM Users WHERE username = ?', [username], async (err, results) => {
         if (err) return res.status(500).json({ error: err.message });
-        if (results.length === 0 || !(await bcrypt.compare(password, results[0].password))) {
+        if (results.length === 0 || !(await bcrypt.compare(password, results[0].password_hash))) {
             return res.status(401).json({ message: 'Authentication failed' });
         }
-        const token = jwt.sign({ userId: results[0].user_id, isAdmin: results[0].is_admin }, JWT_SECRET, { expiresIn: '1h' });
-        res.json({ token });
+
+        const user = { userId: results[0].user_id, username: results[0].username, role: results[0].role };
+        const token = jwt.sign(user, JWT_SECRET, { expiresIn: '1h' });
+
+        res.json({ token, user });
     });
 });
 

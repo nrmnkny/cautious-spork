@@ -1,10 +1,10 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import backgroundImg from '../assets/vapourwave.jpg';
+import backgroundImg from '../assets/dark-pattern.webp';
 
 const Hero = () => {
   return (
-    <div className="relative bg-vaporwaveDark text-white min-h-screen flex items-center justify-center">
+    <div className="relative bg-dark text-white min-h-screen flex items-center justify-center">
       {/* Overlay */}
       <div className="absolute inset-0 bg-cover bg-no-repeat bg-center" style={{ backgroundImage: `url(${backgroundImg})` }}>
         <div className="absolute inset-0 bg-black opacity-50"></div>
@@ -18,7 +18,7 @@ const Hero = () => {
         <p className="text-lg mb-8 font-body">
           Unravel the stories and emotions behind every beat. Join the community.
         </p>
-        <Link to="/reviews" className="bg-vaporwavePurple text-white font-bold py-3 px-6 rounded-full text-lg hover:bg-vaporwavePink transition-colors duration-300">
+        <Link to="/reviews" className="bg-red-600 text-white font-bold py-3 px-6 rounded-full text-lg border-2 border-red-500 hover:bg-red-700 hover:border-red-600 transition-colors duration-300">
           Explore 
         </Link>
       </div>

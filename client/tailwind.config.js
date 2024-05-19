@@ -4,38 +4,24 @@ module.exports = {
   theme: {
     extend: {
       fontFamily: {
-      sans: ['Inter var', 'sans-serif'], 
-    },
-      animation: {
-        'enter': 'enter 1s ease-out forwards',
-        'pulse': 'pulse 2s cubic-bezier(0.4, 0, 0.6, 1) infinite',
-      },
-      keyframes: {
-        enter: {
-          '0%': { opacity: 0, transform: 'translateY(20px)' },
-          '100%': { opacity: 1, transform: 'translateY(0)' }
-        },
-        pulse: {
-          '0%, 100%': { opacity: 1 },
-          '50%': { opacity: 0.5 }
-        },
-      },
-      colors: {
-        vaporwavePink: '#ff91af',
-        vaporwavePurple: '#c991e1',
-        vaporwaveBlue: '#7dcfb6',
-        vaporwaveDark: '#280137',
-        customRed: '#ff4242', 
-      },
-      fontFamily: {
+        sans: ['Inter var', 'sans-serif'],
         header: ['Pacifico', 'cursive'],
         body: ['Roboto Mono', 'monospace'],
-        general: ['GeneralFont', 'sans-serif'],
+      },
+      colors: {
+        dark: '#121212',
+        darker: '#0d0d0d',
+        red: '#FF0000',
+        white: '#FFFFFF',
+        gray: {
+          800: '#2d2d2d',
+          900: '#1a1a1a',
+        },
       },
       backgroundImage: {
-        'hero-pattern': "url('/assets/vapourwave.jpg')", 
+        'dark-pattern': "url('assets/dark-pattern.webp')",
       },
-    }
+    },
   },
   plugins: [],
 };

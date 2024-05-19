@@ -2,19 +2,20 @@ require('dotenv').config();
 const express = require('express');
 const bodyParser = require('body-parser');
 const cors = require('cors');
+const path = require('path');
 const reviewsRouter = require('./routes/reviews');
 const authRouter = require('./routes/authRoutes');
+const userProfileRouter = require('./routes/userProfile'); 
 
 const app = express();
 
-// Update the CORS configuration to allow requests from your frontend domains
 const allowedOrigins = [
     'http://localhost:3000'
 ];
 
 app.use(cors({
     origin: function (origin, callback) {
-        if (!origin) return callback(null, true); // Allow requests with no origin
+        if (!origin) return callback(null, true); 
         if (allowedOrigins.indexOf(origin) === -1) {
             const msg = 'The CORS policy for this site does not allow access from the specified Origin.';
             return callback(new Error(msg), false);
@@ -26,7 +27,6 @@ app.use(cors({
     optionsSuccessStatus: 204
 }));
 
-// Explicitly set CORS headers for all routes
 app.use((req, res, next) => {
     res.header("Access-Control-Allow-Origin", "*");
     res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept, Authorization");
@@ -39,13 +39,14 @@ app.use((req, res, next) => {
 
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
-app.use(express.static('public'));
 
-// Use routes
+// Serve static files from the 'public' directory
+app.use('/public', express.static(path.join(__dirname, 'public')));
+
 app.use('/api/reviews', reviewsRouter);
 app.use('/api/auth', authRouter);
+app.use('/api/user', userProfileRouter);
 
-// Handle 404
 app.use((req, res) => {
     res.status(404).send('404: Page not found');
 });

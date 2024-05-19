@@ -1,42 +1,48 @@
-import React, { useState } from 'react';
-import { useNavigate } from 'react-router-dom';
-import { loginUser } from '../services/api';
+import React, { useState, useEffect } from 'react';
+import API_URL from '../config';
 import { useAuth } from '../context/AuthContext';
 
-const Login = () => {
-    const [credentials, setCredentials] = useState({ username: '', password: '' });
+const UserProfile = () => {
+    const [profile, setProfile] = useState({ username: '', email: '', role: '' });
+    const [message, setMessage] = useState('');
     const [error, setError] = useState('');
-    const [isLoading, setIsLoading] = useState(false);
-    const { login } = useAuth();
-    const navigate = useNavigate();
+    const { token } = useAuth();
+
+    useEffect(() => {
+        fetch(`${API_URL}/api/user/profile`, {
+            headers: { 'Authorization': `Bearer ${token}` }
+        })
+            .then(response => response.json())
+            .then(data => setProfile(data))
+            .catch(error => setError(error.message));
+    }, [token]);
 
     const handleChange = (e) => {
-        setCredentials({ ...credentials, [e.target.name]: e.target.value });
+        const { name, value } = e.target;
+        setProfile(prevState => ({ ...prevState, [name]: value }));
     };
 
-    const handleSubmit = async (e) => {
+    const handleSubmit = (e) => {
         e.preventDefault();
-        setIsLoading(true);
-        try {
-            const response = await loginUser(credentials);
-            if (response.token) {
-                login(response.token, response.user);
-                navigate('/');
-                setError('');
-            } else {
-                throw new Error('Login failed. Please check your credentials and try again.');
-            }
-        } catch (error) {
-            setError(error.response?.data?.error || "Login failed. Please check your credentials and try again.");
-        } finally {
-            setIsLoading(false);
-        }
+        fetch(`${API_URL}/api/user/profile`, {
+            method: 'PUT',
+            headers: {
+                'Content-Type': 'application/json',
+                'Authorization': `Bearer ${token}`
+            },
+            body: JSON.stringify(profile)
+        })
+            .then(response => response.json())
+            .then(data => setMessage(data.message))
+            .catch(error => setError(error.message));
     };
 
     return (
         <div className="min-h-screen flex items-center justify-center bg-dark-pattern bg-cover bg-center">
             <div className="max-w-md w-full bg-gray-900 bg-opacity-80 rounded-lg shadow-md p-8">
-                <h2 className="text-3xl font-bold mb-8 text-center text-white">Login</h2>
+                <h2 className="text-3xl font-bold mb-8 text-center text-white">User Profile</h2>
+                {error && <p className="text-red-500 text-center">{error}</p>}
+                {message && <p className="text-green-500 text-center">{message}</p>}
                 <form onSubmit={handleSubmit} className="space-y-6">
                     <div>
                         <label htmlFor="username" className="text-sm font-medium text-gray-300">Username</label>
@@ -44,37 +50,33 @@ const Login = () => {
                             type="text"
                             name="username"
                             id="username"
-                            value={credentials.username}
+                            value={profile.username}
                             onChange={handleChange}
                             className="mt-1 block w-full px-3 py-2 bg-gray-700 text-white border border-gray-600 rounded-md text-sm shadow-sm placeholder-gray-400
                                        focus:outline-none focus:border-red-500 focus:ring-1 focus:ring-red-500"
-                            placeholder="Enter your username"
                             required
                         />
                     </div>
                     <div>
-                        <label htmlFor="password" className="text-sm font-medium text-gray-300">Password</label>
+                        <label htmlFor="email" className="text-sm font-medium text-gray-300">Email</label>
                         <input
-                            type="password"
-                            name="password"
-                            id="password"
-                            value={credentials.password}
+                            type="email"
+                            name="email"
+                            id="email"
+                            value={profile.email}
                             onChange={handleChange}
                             className="mt-1 block w-full px-3 py-2 bg-gray-700 text-white border border-gray-600 rounded-md text-sm shadow-sm placeholder-gray-400
                                        focus:outline-none focus:border-red-500 focus:ring-1 focus:ring-red-500"
-                            placeholder="Enter your password"
                             required
                         />
                     </div>
-                    {error && <p className="text-red-500 text-sm text-center">{error}</p>}
                     <div>
                         <button
                             type="submit"
                             className="w-full flex justify-center py-2 px-4 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-red-600 
                                        hover:bg-red-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-red-500"
-                            disabled={isLoading}
                         >
-                            {isLoading ? 'Logging in...' : 'Sign in'}
+                            Update Profile
                         </button>
                     </div>
                 </form>
@@ -83,4 +85,4 @@ const Login = () => {
     );
 };
 
-export default Login;
+export default UserProfile;

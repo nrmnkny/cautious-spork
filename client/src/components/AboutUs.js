@@ -34,15 +34,14 @@ const artists = [
     description: "Brief description of the artist or band.",
     link: "/featured-artists/artist-name"
   },
-  // Add more artists as needed
   {
-    id: 1,
+    id: 2,
     name: "J7",
     description: "Brief description of the artist or band.",
     link: "/featured-artists/artist-name"
   },
   {
-    id: 1,
+    id: 3,
     name: "Waka",
     description: "Brief description of the artist or band.",
     link: "/featured-artists/artist-name"
@@ -53,14 +52,14 @@ const AboutUs = () => {
   const [play, setPlay] = useState(false);
 
   return (
-    <div className="pt-10 bg-gray-900 text-white">
+    <div className="pt-10 bg-dark text-white min-h-screen">
       <div className="container mx-auto p-8">
         <div className="grid md:grid-cols-3 gap-8">
           <div className="bg-gray-800 p-6 rounded-lg shadow-lg">
-            <h2 className="text-3xl font-bold mb-4">StudyMode</h2>
-            <p>Explore our in-depth analysis tools and resources that help you learn through music.</p>
-            <button onClick={() => setPlay(!play)} className="mt-4 flex items-center justify-center">
-              <FaPlayCircle className="text-4xl hover:text-gray-300 cursor-pointer" />
+            <h2 className="text-3xl font-bold mb-4 font-header">The Rhythmic Study</h2>
+            <p className="text-gray-400">Explore our in-depth analysis tools and resources that help you learn through music.</p>
+            <button onClick={() => setPlay(!play)} className="mt-4 flex items-center justify-center text-red-500">
+              <FaPlayCircle className="text-4xl hover:text-red-600 cursor-pointer" />
             </button>
             {play && (
               <ReactPlayer
@@ -75,21 +74,21 @@ const AboutUs = () => {
           </div>
 
           <div className="bg-gray-800 p-6 rounded-lg shadow-lg">
-            <h2 className="text-3xl font-bold mb-4">Classic Tales</h2>
+            <h2 className="text-3xl font-bold mb-4 font-header">The Rhythmic Classic</h2>
             {tales.map(tale => (
               <Link key={tale.id} to={tale.link} className="block p-4 hover:bg-gray-700 rounded-lg">
-                <FaBookOpen className="inline mr-2" />
-                <span>{tale.title}</span>
+                <FaBookOpen className="inline mr-2 text-red-500" />
+                <span className="text-gray-300">{tale.title}</span>
               </Link>
             ))}
           </div>
 
           <div className="bg-gray-800 p-6 rounded-lg shadow-lg">
-            <h2 className="text-3xl font-bold mb-4">Featured Artists</h2>
+            <h2 className="text-3xl font-bold mb-4 font-header">The Rhythmic Artist</h2>
             {artists.map(artist => (
               <Link key={artist.id} to={artist.link} className="block p-4 hover:bg-gray-700 rounded-lg">
-                <FaMusic className="inline mr-2" />
-                <span>{artist.name}</span>
+                <FaMusic className="inline mr-2 text-red-500" />
+                <span className="text-gray-300">{artist.name}</span>
               </Link>
             ))}
           </div>

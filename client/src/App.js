@@ -7,28 +7,32 @@ import AboutUs from './components/AboutUs';
 import Login from './components/Login';
 import Register from './components/Register';
 import Reviews from './components/Reviews';
-import ReviewDetail from './components/ReviewDetail';
 import PostReview from './components/PostReview';
-import StudySection from './components/StudySection'; 
+import StudySection from './components/StudySection';
 import { useAuth } from './context/AuthContext';
+import UserProfile from './components/UserProfile';
+import RoleManagement from './components/RoleManagement';
+import ReviewPage from './components/ReviewPage';
 
 function App() {
-  const { isAuthenticated } = useAuth();  
+  const { isAuthenticated } = useAuth();
 
   return (
     <div className="App">
       <Header />
-        <Routes>
-          <Route path="/" element={<Hero />} />
-          <Route path="/about" element={<AboutUs />} />
-          <Route path="/login" element={<Login />} />
-          <Route path="/register" element={<Register />} />
-          <Route path="/reviews" element={<Reviews />} />
-          <Route path="/review/:review_id" element={<ReviewDetail />} />
-          <Route path="/study-mode" element={<StudySection />} /> 
-          <Route path="/post-review" element={isAuthenticated ? <PostReview /> : <Navigate to="/login" />} />
-          <Route path="*" element={<Navigate to="/" />} /> 
-        </Routes>
+      <Routes>
+        <Route path="/" element={<Hero />} />
+        <Route path="/about" element={<AboutUs />} />
+        <Route path="/login" element={<Login />} />
+        <Route path="/register" element={<Register />} />
+        <Route path="/reviews" element={<Reviews />} />
+        <Route path="/review/:review_id" element={<ReviewPage />} />
+        <Route path="/study-mode" element={<StudySection />} />
+        <Route path="/post-review" element={isAuthenticated ? <PostReview /> : <Navigate to="/login" />} />
+        <Route path="*" element={<Navigate to="/" />} />
+        <Route path="/profile" element={<UserProfile />} />
+        <Route path="/role-management" element={<RoleManagement />} />
+      </Routes>
       <Footer />
     </div>
   );
