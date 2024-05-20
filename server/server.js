@@ -6,6 +6,7 @@ const path = require('path');
 const reviewsRouter = require('./routes/reviews');
 const authRouter = require('./routes/authRoutes');
 const userProfileRouter = require('./routes/userProfile'); 
+const newsRoutes = require('./routes/news');
 
 const app = express();
 
@@ -27,16 +28,6 @@ app.use(cors({
     optionsSuccessStatus: 204
 }));
 
-app.use((req, res, next) => {
-    res.header("Access-Control-Allow-Origin", "*");
-    res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept, Authorization");
-    res.header("Access-Control-Allow-Methods", "GET, POST, PUT, DELETE, OPTIONS");
-    if (req.method === "OPTIONS") {
-        return res.status(200).json({});
-    }
-    next();
-});
-
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 
@@ -46,6 +37,7 @@ app.use('/public', express.static(path.join(__dirname, 'public')));
 app.use('/api/reviews', reviewsRouter);
 app.use('/api/auth', authRouter);
 app.use('/api/user', userProfileRouter);
+app.use('/api/news', newsRoutes); 
 
 app.use((req, res) => {
     res.status(404).send('404: Page not found');

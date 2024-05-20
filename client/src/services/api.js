@@ -13,7 +13,7 @@ export const fetchReview = async (id) => {
         const response = await api.get(`/reviews/${id}`);
         return response.data;
     } catch (error) {
-        console.error('API error:', error.response);
+        console.error('API error:', error.response || error.message);
         throw new Error('Failed to fetch review');
     }
 };
@@ -23,7 +23,7 @@ export const fetchReviews = async () => {
         const response = await api.get('/reviews');
         return response.data;
     } catch (error) {
-        console.error('API error:', error.response);
+        console.error('API error:', error.response || error.message);
         throw new Error('Failed to fetch reviews');
     }
 };
@@ -37,7 +37,7 @@ export const createReview = async (reviewData) => {
         });
         return response.data;
     } catch (error) {
-        console.error('API error:', error.response);
+        console.error('API error:', error.response || error.message);
         throw new Error('Failed to create review');
     }
 };
@@ -51,7 +51,7 @@ export const updateReview = async (id, reviewData) => {
         });
         return response.data;
     } catch (error) {
-        console.error('API error:', error.response);
+        console.error('API error:', error.response || error.message);
         throw new Error('Failed to update review');
     }
 };
@@ -65,7 +65,7 @@ export const deleteReview = async (id) => {
         });
         return response.data;
     } catch (error) {
-        console.error('API error:', error.response);
+        console.error('API error:', error.response || error.message);
         throw new Error('Failed to delete review');
     }
 };
@@ -75,7 +75,7 @@ export const loginUser = async (credentials) => {
         const response = await api.post('/auth/login', credentials);
         return response.data;
     } catch (error) {
-        console.error('Login API error:', error.response);
+        console.error('Login API error:', error.response || error.message);
         throw new Error('Failed to login');
     }
 };
@@ -85,7 +85,27 @@ export const registerUser = async (userData) => {
         const response = await api.post('/auth/register', userData);
         return response.data;
     } catch (error) {
-        console.error('Registration API error:', error.response);
+        console.error('Registration API error:', error.response || error.message);
         throw new Error('Failed to register user');
     }
 };
+
+export const fetchNews = async () => {
+    try {
+        const response = await api.get('/news');
+        return response.data;
+    } catch (error) {
+        console.error('API error:', error.response || error.message);
+        throw new Error('Failed to fetch news');
+    }
+};
+
+export const fetchNewsById = async (id) => {
+    try {
+      const response = await api.get(`/news/${id}`);
+      return response.data;
+    } catch (error) {
+      console.error('API error:', error.response || error.message);
+      throw new Error('Failed to fetch news item');
+    }
+  };

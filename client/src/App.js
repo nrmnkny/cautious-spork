@@ -3,6 +3,7 @@ import { Routes, Route, Navigate } from 'react-router-dom';
 import Header from './components/Header';
 import Footer from './components/Footer';
 import Hero from './components/Hero';
+import RhythmicVine from './components/RhythmicVine';
 import AboutUs from './components/AboutUs';
 import Login from './components/Login';
 import Register from './components/Register';
@@ -13,6 +14,7 @@ import { useAuth } from './context/AuthContext';
 import UserProfile from './components/UserProfile';
 import RoleManagement from './components/RoleManagement';
 import ReviewPage from './components/ReviewPage';
+import NewsDetail from './components/NewsDetail';
 
 function App() {
   const { isAuthenticated } = useAuth();
@@ -21,7 +23,12 @@ function App() {
     <div className="App">
       <Header />
       <Routes>
-        <Route path="/" element={<Hero />} />
+        <Route path="/" element={
+          <>
+            <Hero />
+            <RhythmicVine />
+          </>
+        } />
         <Route path="/about" element={<AboutUs />} />
         <Route path="/login" element={<Login />} />
         <Route path="/register" element={<Register />} />
@@ -32,6 +39,7 @@ function App() {
         <Route path="*" element={<Navigate to="/" />} />
         <Route path="/profile" element={<UserProfile />} />
         <Route path="/role-management" element={<RoleManagement />} />
+        <Route path="/news/:id" element={<NewsDetail />} />
       </Routes>
       <Footer />
     </div>
